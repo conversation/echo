@@ -63,14 +63,22 @@
   };
 
   echo.render = function () {
-    var nodes = document.querySelectorAll('img[data-echo]');
+    // Change:
+    // This was document.querySelectorAll('img[data-echo]');
+    // IE7 didn't handle it correctly, so use jQuery.
+    var nodes = $('img[data-echo]');
     var length = nodes.length;
     var src, elem;
+
+    // Change:
+    // These were document.documentElement.clientHeight) and
+    // document.documentElement.clientWidth). IE7 wasn't happy.
+    // Changed them to use jQuery.
     var view = {
       l: 0 - offset.l,
       t: 0 - offset.t,
-      b: (root.innerHeight || document.documentElement.clientHeight) + offset.b,
-      r: (root.innerWidth || document.documentElement.clientWidth) + offset.r
+      b: (root.innerHeight || $(window).height()) + offset.b,
+      r: (root.innerWidth || $(window).width()) + offset.r
     };
     for (var i = 0; i < length; i++) {
       elem = nodes[i];
