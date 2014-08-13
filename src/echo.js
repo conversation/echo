@@ -97,9 +97,10 @@
         callback(elem, 'unload');
       }
     }
-    if (!length) {
-      echo.detach();
-    }
+    // Change:
+    // Removed detach when render thinks there are no more images to lazy load
+    // This prevented echo from lazy loading images within content loaded
+    // after domready
   };
 
   echo.detach = function () {
